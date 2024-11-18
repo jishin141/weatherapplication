@@ -70,114 +70,124 @@ class _WeatherPageState extends State<WeatherPage> {
           );
         }
         return Scaffold(
-          backgroundColor: const Color.fromARGB(255, 85, 84, 84),
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: SizedBox(
-                  height: height,
-                  width: width,
-                  child: Stack(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          BlocBuilder<AlarmsBloc, AlarmsState>(
-                            builder: (context, state) {
-                              String alarmInfo = ' alarm not found';
-                              String alarmTime = '';
-                              if (state is DataBaseInitial) {
-                                state.pref.getString('label') == null
-                                    ? alarmInfo = 'No Alarms '
-                                    : alarmInfo = state.pref
-                                        .getString('label')!
-                                        .toUpperCase();
+          // backgroundColor: const Color.fromARGB(255, 85, 84, 84),
+          body: Container(
+            height: height,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/2148098556.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: SizedBox(
+                    height: height,
+                    width: width,
+                    child: Stack(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            BlocBuilder<AlarmsBloc, AlarmsState>(
+                              builder: (context, state) {
+                                String alarmInfo = ' alarm not found';
+                                String alarmTime = '';
+                                if (state is DataBaseInitial) {
+                                  state.pref.getString('label') == null
+                                      ? alarmInfo = 'No Alarms '
+                                      : alarmInfo = state.pref
+                                          .getString('label')!
+                                          .toUpperCase();
 
-                                state.pref.getString('alarmTime') == null
-                                    ? alarmTime = ''
-                                    : alarmTime = state.pref
-                                        .getString('alarmTime')!
-                                        .toUpperCase();
-                              }
-                              if (state is AlarmAddedState) {
-                                String? label = state.pref.getString('label');
-                                alarmInfo = label!;
-                                alarmTime = state.pref.getString('alarmTime')!;
-                              }
-                              return AlarmWidget(
-                                  alarmTime: alarmTime,
-                                  height: height,
-                                  alarmInfo: alarmInfo,
-                                  cityNAme: cityNAme,
-                                  temp: temp);
-                            },
-                          ),
-                        ],
-                      ),
-                      BlocBuilder<WeatherBloc, WeatherState>(
-                        builder: (context, state) {
-                          if (state is WeatherLoading) {
-                            return const CircularProgressIndicator();
-                          }
-                          if (state is WeatherSuccessState) {
-                            final weather = state.weather;
-                            cityNAme = weather.areaName!;
-                            temp =
-                                weather.temperature!.celsius!.round.toString();
-                            return Column(
-                              children: [
-                                SizedBox(
-                                  height: height * 0.25,
-                                ),
-                                Place(
-                                  callback: () {
-                                    context.read<WeatherBloc>().add(
-                                          GetWeatherEvent(
-                                              position:
-                                                  snapshot.data as Position),
-                                        );
-                                  },
-                                  place: weather.areaName!,
-                                ),
-                                HelperWidgets.getWeatherIcon(
-                                    weather.weatherConditionCode!, height),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                                TemperatureText(
-                                  text: state.weather.temperature!.celsius!
-                                      .round()
-                                      .toString(),
-                                ),
-                                WeatherDescription(
-                                    weather: weather, width: width),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                                Text(
-                                  DateFormat('EEEE M/d/y')
-                                      .add_jm()
-                                      .format(weather.date!),
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(
-                                  height: height * 0.01,
-                                ),
-                              ],
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      ),
-                    ],
+                                  state.pref.getString('alarmTime') == null
+                                      ? alarmTime = ''
+                                      : alarmTime = state.pref
+                                          .getString('alarmTime')!
+                                          .toUpperCase();
+                                }
+                                if (state is AlarmAddedState) {
+                                  String? label = state.pref.getString('label');
+                                  alarmInfo = label!;
+                                  alarmTime =
+                                      state.pref.getString('alarmTime')!;
+                                }
+                                return AlarmWidget(
+                                    alarmTime: alarmTime,
+                                    height: height,
+                                    alarmInfo: alarmInfo,
+                                    cityNAme: cityNAme,
+                                    temp: temp);
+                              },
+                            ),
+                          ],
+                        ),
+                        BlocBuilder<WeatherBloc, WeatherState>(
+                          builder: (context, state) {
+                            if (state is WeatherLoading) {
+                              return const CircularProgressIndicator();
+                            }
+                            if (state is WeatherSuccessState) {
+                              final weather = state.weather;
+                              cityNAme = weather.areaName!;
+                              temp = weather.temperature!.celsius!.round
+                                  .toString();
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: height * 0.25,
+                                  ),
+                                  Place(
+                                    callback: () {
+                                      context.read<WeatherBloc>().add(
+                                            GetWeatherEvent(
+                                                position:
+                                                    snapshot.data as Position),
+                                          );
+                                    },
+                                    place: weather.areaName!,
+                                  ),
+                                  HelperWidgets.getWeatherIcon(
+                                      weather.weatherConditionCode!, height),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  TemperatureText(
+                                    text: state.weather.temperature!.celsius!
+                                        .round()
+                                        .toString(),
+                                  ),
+                                  WeatherDescription(
+                                      weather: weather, width: width),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                  Text(
+                                    DateFormat('EEEE M/d/y')
+                                        .add_jm()
+                                        .format(weather.date!),
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.01,
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },

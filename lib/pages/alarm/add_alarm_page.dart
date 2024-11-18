@@ -41,7 +41,8 @@ class _AddAlarmState extends State<AddAlarm> {
                     border: OutlineInputBorder(),
                     label: Text(
                       'Alarm Label',
-                      style: TextStyle(color: Colors.white),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                   ),
                 ),
@@ -53,7 +54,8 @@ class _AddAlarmState extends State<AddAlarm> {
                       const SnackBar(
                         content: Text(
                           'Please Add Label',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255)),
                         ),
                       ),
                     );
