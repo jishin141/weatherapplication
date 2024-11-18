@@ -84,7 +84,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         children: [
                           BlocBuilder<AlarmsBloc, AlarmsState>(
                             builder: (context, state) {
-                              String alarmInfo = 'NO ALARMS FOUND';
+                              String alarmInfo = ' alarm not found';
                               String alarmTime = '';
                               if (state is DataBaseInitial) {
                                 state.pref.getString('label') == null
@@ -269,8 +269,7 @@ class Location {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error('Location permissions are denied');
     }
 
     return await Geolocator.getCurrentPosition();

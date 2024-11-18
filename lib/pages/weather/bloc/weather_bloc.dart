@@ -11,6 +11,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   WeatherBloc() : super(WeatherInitial()) {
     on<GetWeatherEvent>(getWeather);
   }
+  // fetch data from weather api
   FutureOr<void> getWeather(
       GetWeatherEvent event, Emitter<WeatherState> emit) async {
     emit(
@@ -19,6 +20,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     await Location.determinePosition();
     const apiKey = '2e789dd8f96aa9c712c3d7582deada9f';
     try {
+      // weather factory comes from weather package
       WeatherFactory weatherFactory = WeatherFactory(
         apiKey,
       );

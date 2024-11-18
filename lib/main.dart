@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:weatherapp/pages/weather/weather_screen.dart';
-
 import 'pages/alarm/bloc/alarms_bloc.dart';
 import 'pages/weather/bloc/weather_bloc.dart';
 

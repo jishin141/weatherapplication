@@ -62,9 +62,7 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
         await Alarm.setNotificationOnAppKillContent(
             'Wake Up Buddy', 'You Are getting late');
       }
-    } catch (e) {
-      log(e.toString());
-    }
+    } catch (e) {}
   }
 
   FutureOr<void> _initDatabase(
@@ -72,12 +70,9 @@ class AlarmsBloc extends Bloc<AlarmsEvent, AlarmsState> {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       emit(DataBaseInitial(pref: pref));
-      log(pref.getString('label').toString());
 
       emit(DataBaseInitial(pref: pref));
-    } catch (e) {
-      log(e.toString());
-    }
+    } catch (e) {}
   }
 
   FutureOr<void> _deleteAlarm(
