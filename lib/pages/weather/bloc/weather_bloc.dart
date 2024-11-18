@@ -18,7 +18,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       WeatherLoading(),
     );
     await Location.determinePosition();
-    const apiKey = '2e789dd8f96aa9c712c3d7582deada9f';
+    const apiKey = '41c316fe202f87828bcea3376081e45b';
     try {
       // weather factory comes from weather package
       WeatherFactory weatherFactory = WeatherFactory(
